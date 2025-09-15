@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/COB_Circular_Branco.png" type="image/png">
+    <title>COB - Conectando Orquestras Brasileiras</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2D5A3D;
+            --accent-silver: #C0C0C0;
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0f0f0f;
+            --card-bg: #2a2a2a;
+            --text-primary: #e5e5e5;
+            --text-secondary: #b0b0b0;
+            --white: #FFFFFF;
+            --light-silver: #D3D3D3;
+            --gold-accent: #B8860B;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--dark-bg);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .container-vagas {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: var(--accent-silver);
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-silver);
+            text-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-silver);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.8) 0%, rgba(26, 26, 26, 0.8) 100%),
+                url('img/capa.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--white);
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="3" fill="rgba(192,192,192,0.2)"/><circle cx="800" cy="300" r="2" fill="rgba(192,192,192,0.2)"/><circle cx="300" cy="800" r="3" fill="rgba(192,192,192,0.2)"/><circle cx="700" cy="700" r="2" fill="rgba(192,192,192,0.2)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-silver) 0%, var(--light-silver) 100%);
+            color: var(--darker-bg);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s both;
+            box-shadow: 0 5px 15px rgba(192, 192, 192, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(192, 192, 192, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            background-color: var(--dark-bg);
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--darker-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--accent-silver);
+            margin-bottom: 3rem;
+            position: relative;
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-silver), var(--gold-accent));
+            box-shadow: 0 0 10px rgba(192, 192, 192, 0.5);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-visual {
+            text-align: center;
+        }
+
+        .music-icon {
+            width: 15rem;
+            height: 15rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.5));
+        }
+
+        .icon {
+            width: 8rem;
+            height: 4rem;
+            filter: drop-shadow(0 0 20px rgba(192, 192, 192, 0.5));
+        }
+
+        /* Values Section */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: url("img/notas-bg.png") no-repeat center center;
+            background-size: cover;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(192, 192, 192, 0.1);
+            position: relative;
+        }
+
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(192, 192, 192, 0.3);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            color: var(--accent-silver);
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 10px rgba(192, 192, 192, 0.3));
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #000;
+            /* Ou #333, para contraste com fundo claro */
+        }
+
+        .value-card p {
+            font-size: 1rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .value-symbol {
+            width: 40px;
+            margin-top: 1.5rem;
+            opacity: 0.8;
+            filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.2));
+        }
+
+        /* Benefits Section */
+        .benefits-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--accent-silver);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .benefit-item h4 {
+            color: var(--accent-silver);
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .benefit-item p {
+            color: var(--text-secondary);
+        }
+
+        /* ODS Section */
+        .ods-content {
+            text-align: center;
+        }
+
+        .ods-content p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .ods-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .ods-content a {
+            color: var(--accent-silver);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .ods-content a:hover {
+            color: var(--light-silver);
+            text-shadow: 0 0 5px rgba(192, 192, 192, 0.5);
+        }
+
+        /* Forms Section */
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .form-card {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #1a3d2b 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .form-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-silver) 0%, var(--light-silver) 100%);
+            color: var(--darker-bg);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 15px rgba(192, 192, 192, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .form-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(192, 192, 192, 0.4);
+        }
+
+        /* Forms Section Vagas */
+        .forms-grid-vagas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .form-card-vagas {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #1a3d2b 100%);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-card-vagas:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .button-wrapper-vagas {
+            text-align: center;
+            /* Centraliza conteúdo inline/block */
+        }
+
+        .form-button-vagas {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-silver) 0%, var(--light-silver) 100%);
+            color: var(--darker-bg);
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 15px rgba(192, 192, 192, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+
+
+
+        .form-button-vagas:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(192, 192, 192, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker-bg);
+            color: var(--text-primary);
+            padding: 3rem 0 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-silver);
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(192, 192, 192, 0.2);
+            padding-top: 1rem;
+            margin-top: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icons a img {
+            width: 32px;
+            height: 32px;
+            /*filter: brightness(0) invert(1);*/
+            /* Para deixar branco */
+            transition: transform 0.2s ease;
+        }
+
+        .social-icons a:hover img {
+            transform: scale(1.1);
+        }
+
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Scrollbar customization */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-silver);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--light-silver);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="container">
+            <img src="img/COB_Horizontal_Branco.png" alt="Logo COB" class="icon">
+            <ul class="nav-links">
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#institucional">Institucional</a></li>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#agenda2030">Agenda 2030</a></li>
+                <li><a href="#cadastro">Cadastro</a></li>
+                <li><a href="#vagas">Vagas</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Conectando Orquestras Brasileiras</h1>
+                <p>A arte de unir pela música</p>
+                <a href="#sobre" class="cta-button">Conheça o COB</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="section">
+        <div class="container">
+            <h2 class="section-title">Sobre o COB</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>O COB é uma iniciativa dedicada a fomentar a colaboração entre orquestras de todo o país, visando
+                        estabelecer uma rede colaborativa.</p>
+
+                    <p>Nosso propósito é facilitar o intercâmbio de conhecimentos, materiais e técnicas relacionadas à
+                        gestão de grupos sinfônicos, promovendo, assim, uma administração mais coesa e eficaz.</p>
+
+                    <p>Por meio dessa parceria, o COB busca desenvolver, em conjunto com as orquestras, ferramentas e
+                        estratégias que contribuam para uma gestão mais eficiente e sustentável dessas instituições.</p>
+                </div>
+                <div class="about-visual">
+                    <img src="img/COB_Circular_Branco.png" alt="Logo COB" class="music-icon">
+                </div>
+                
+                
+
+            </div>
+        </div>
+    </section>
+
+    <section id="institucional" class="section">
+        <div class="container">
+                <h2 class="section-title">Video Institucional</h2>
+                <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden;">
+                  <iframe src="https://drive.google.com/file/d/1VjabA2TUB82c6fOpQH4zJj4ZwELii0S0/preview" 
+                          style="position:absolute; top:0; left:0; width:100%; height:100%;" 
+                          frameborder="0" allow="autoplay" allowfullscreen></iframe>
+                </div>
+            </div>
+    </section>
+    
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Missão, Visão e Valores</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>Missão</h3>
+                    <p>Promover a interlocução entre orquestras brasileiras para
+                        fortalecer o cenário musical nacional por meio da colaboração e do intercâmbio cultural.</p>
+                    <img src="img/nota01.png" alt="Símbolo Missão" class="value-symbol">
+                </div>
+                <div class="value-card">
+                    <h3>Visão</h3>
+                    <p>Ser reconhecido por cooperar com a inovação das práticas de gestão dos grupos sinfônicos
+                        brasileiros.</p>
+                    <img src="img/nota02.png" alt="Símbolo Missão" class="value-symbol">
+                </div>
+                <div class="value-card">
+                    <h3>Valores</h3>
+                    <p>Colaboração, Diálogo permanente, Articulação cultural, Compromisso social e Conhecimento.</p>
+                    <img src="img/nota03.png" alt="Símbolo Missão" class="value-symbol">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="beneficios" class="section">
+        <div class="container">
+            <h2 class="section-title">Benefícios da Rede COB</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-secondary);">Ao
+                integrar o COB, seu grupo terá acesso a:</p>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <h4> Maior Visibilidade</h4>
+                    <p>Aumento de visibilidade através das nossas redes sociais e eventos</p>
+                </div>
+                <div class="benefit-item">
+                    <h4> Colaborações</h4>
+                    <p>Oportunidades de colaborações com outras orquestras</p>
+                </div>
+                <div class="benefit-item">
+                    <h4> Aprimoramento</h4>
+                    <p>Informações para aprimoramento de certos segmentos da instituição</p>
+                </div>
+                <div class="benefit-item">
+                    <h4> Conteúdo Específico</h4>
+                    <p>Conteúdo específico sobre grupos sinfônicos</p>
+                </div>
+                <div class="benefit-item">
+                    <h4> Grupos de Trabalho</h4>
+                    <p>GTs de profissionais específicos de orquestra, entre outros</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="agenda2030" class="section">
+        <div class="container">
+            <h2 class="section-title">Agenda 2030</h2>
+            <div class="ods-content">
+                <p>A Agenda 2030 é um plano de ação para as pessoas, para o planeta e para a prosperidade. Também busca
+                    fortalecer a paz universal com mais liberdade e reconhece que a erradicação da pobreza em todas as
+                    suas formas e dimensões é o maior desafio global.</p>
+
+                <img src="img/18ads.png" alt="17 Objetivos de Desenvolvimento Sustentável" class="ods-image">
+
+                <p>Seus 17 Objetivos de Desenvolvimento Sustentável (ODS) e 169 metas demonstram a escala e a ambição
+                    desse compromisso universal, firmado pelo Brasil e outros 192 países que integram a Organização das
+                    Nações Unidas (ONU).
+                </p>
+
+                <p>No Brasil, foi incorporado ainda um 18º ODS, que reconhece a cultura como um pilar essencial para o
+                    desenvolvimento sustentável. Esse objetivo destaca o papel das expressões culturais na preservação
+                    da memória, na promoção da diversidade e na transformação social.
+                </p>
+
+                <p>As orquestras e instituições culturais também integram esse movimento. Ao promoverem o acesso à
+                    cultura, à educação e à inclusão social, elas contribuem para a construção de uma sociedade mais
+                    justa, igualitária e sustentável.
+                </p>
+
+                <p style="margin-top: 2rem;">
+                    <strong>Fonte:</strong> <a href="https://gtagenda2030.org.br/ods/" target="_blank">GT Agenda
+                        2030</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cadastro" class="section">
+        <div class="container">
+            <h2 class="section-title">Faça Parte do COB</h2>
+            <div class="forms-grid">
+                <div class="form-card">
+                    <h3>🎼 Representantes de Orquestra</h3>
+                    <p>Cadastre sua orquestra e faça parte da nossa rede colaborativa</p>
+                    <a href="https://forms.gle/hMpP849a5t2mL4PA7" target="_blank" class="form-button">Cadastrar
+                        Orquestra</a>
+                </div>
+                <div class="form-card">
+                    <h3>🙋‍♂️ Voluntários</h3>
+                    <p>Seja um voluntário e contribua para o desenvolvimento das orquestras brasileiras</p>
+                    <a href="https://forms.gle/Ahn7372zGSSZJ6HX7" target="_blank" class="form-button">Ser Voluntário</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vagas" class="section">
+        <div class="container-vagas">
+            <h2 class="section-title">Vagas</h2>
+            <div class="forms-grid-vagas">
+                <div class="form-card-vagas">
+                    <h3>📝 Vagas</h3>
+                    <p>Quer viver da música? Confira os editais e participe de orquestras e projetos que fazem a diferença.</p>
+
+                    <div class="button-wrapper-vagas">
+                        <a href="https://drive.google.com/drive/folders/1nwou1GyrOiYLcxlaO2KSKSYmz4dTFUCy?usp=sharing"
+                            target="_blank" class="form-button-vagas">Ver Vagas</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Recursos Educacionais</h2>
+            <div style="text-align: center;">
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; color: var(--text-secondary);">Acesse nossos e-books e
+                    materiais educacionais desenvolvidos especialmente para orquestras</p>
+                <a href="https://www.canva.com/design/DAGJtz-STPM/2JYxgmIWLpyN8EdE7owWeQ/edit?utm_content=DAGJtz-STPM&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+                    target="_blank" class="cta-button">📚 Acessar E-books</a>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>COB - Conectando Orquestras Brasileiras</h3>
+                    <p>Uma rede colaborativa para o desenvolvimento da música sinfônica brasileira</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p>📧 orquestrasbrasileiras@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Redes Sociais</h3>
+                    <div class="social-icons">
+                        <a href="https://www.instagram.com/orquestrasbr/" target="_blank" aria-label="Instagram">
+                            <img src="img/instagram.png" alt="Instagram">
+                        </a>
+                        <a href="https://www.linkedin.com/company/conectando-orquestras-brasileiras/" target="_blank"
+                            aria-label="LinkedIn">
+                            <img src="img/linkedin.png" alt="LinkedIn">
+                        </a>
+                        <a href="https://linktr.ee/orquestrasbr" target="_blank" aria-label="Linktree">
+                            <img src="img/link-externo.png" alt="Linktree">
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC6H6IbeDM5X9h0JjqljnGnw" target="_blank"
+                            aria-label="YouTube">
+                            <img src="img/youtube.png" alt="YouTube">
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 COB - Conectando Orquestras Brasileiras. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling para links internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Adicionar classe active no scroll com backdrop blur
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(15, 15, 15, 0.95)';
+                header.style.backdropFilter = 'blur(15px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%)';
+                header.style.backdropFilter = 'blur(10px)';
+            }
+        });
+    </script>
+</body>
+
+</html>
